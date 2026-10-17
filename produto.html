@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Produto — HiT Outlet</title>
+  <meta name="description" content="Detalhes do produto na HiT Outlet: fotos, tamanhos, cores, preço e frete. Compre pelo site ou fale no WhatsApp.">
+  <link rel="icon" type="image/png" href="assets/img/marca/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-pagina="catalogo">
+
+  <div id="cabecalho-site"></div>
+
+  <main class="secao" id="pagina-produto">
+    <div class="container pagina-produto">
+
+      <!-- ============ GALERIA ============ -->
+      <div class="galeria-produto">
+        <div class="foto-principal">
+          <img id="foto-principal" src="assets/img/produtos/tenis-jordan-1-mid.jpg" alt="Foto do produto">
+        </div>
+        <div class="miniaturas" id="miniaturas"></div>
+      </div>
+
+      <!-- ============ INFORMAÇÕES ============ -->
+      <div class="info-produto">
+        <span class="marca-p" id="info-marca"></span>
+        <div class="linha-flex" id="info-etiquetas" style="margin:.4rem 0"></div>
+        <h1 id="info-nome"></h1>
+        <p class="resumo" id="info-resumo"></p>
+
+        <div class="bloco-preco">
+          <div class="linha-preco" id="info-precos"></div>
+        </div>
+
+        <!-- cores -->
+        <div id="bloco-cores">
+          <div class="titulo-grupo rotulo-var" style="font-family:var(--fonte-titulo);font-weight:800;font-size:.9rem;text-transform:uppercase"></div>
+          <div class="cores-opcoes" id="info-cores"></div>
+        </div>
+
+        <!-- tamanhos -->
+        <div>
+          <div class="titulo-grupo" style="font-family:var(--fonte-titulo);font-weight:800;font-size:.9rem;text-transform:uppercase">Tamanho</div>
+          <div class="tamanhos-grade" id="info-tamanhos"></div>
+          <p class="aviso-tamanho" id="aviso-tamanho" role="alert"></p>
+        </div>
+
+        <!-- compra -->
+        <div class="linha-compra">
+          <div class="qtd-controle">
+            <button id="qtd-menos" aria-label="Diminuir quantidade">−</button>
+            <input type="number" id="qtd-produto" value="1" min="1" aria-label="Quantidade">
+            <button id="qtd-mais" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <button class="btn btn-primario" id="btn-comprar">Adicionar à sacola</button>
+          <a class="btn btn-contorno" id="btn-whatsapp-produto" href="#" target="_blank" rel="noopener">Comprar no WhatsApp</a>
+        </div>
+
+        <div class="linha-flex mt-2">
+          <button class="btn btn-mini btn-escuro" id="btn-ver-sacola">Ver sacola</button>
+          <span class="texto-pequeno texto-suave">Pagamento em até 10x sem juros · Pix com desconto</span>
+        </div>
+
+        <!-- selos -->
+        <div class="selos-confianca">
+          <div class="selo-info"><span class="icone">🚚</span> Envio para todo o Brasil</div>
+          <div class="selo-info"><span class="icone">🏭</span> Direto da fábrica</div>
+          <div class="selo-info"><span class="icone">💬</span> Suporte no WhatsApp</div>
+          <div class="selo-info"><span class="icone">🔒</span> Compra segura</div>
+        </div>
+
+        <!-- frete -->
+        <div class="mt-3">
+          <h3>Calcular frete</h3>
+          <form class="campo-frete" id="form-frete-produto">
+            <label class="somente-leitor" for="cep-produto">CEP de destino</label>
+            <input type="text" id="cep-produto" placeholder="Digite seu CEP" inputmode="numeric" maxlength="9">
+            <button class="btn btn-escuro" type="submit">Calcular</button>
+          </form>
+          <p class="frete-calculado" id="resultado-frete-produto" aria-live="polite"></p>
+        </div>
+
+        <!-- abas -->
+        <div class="abas-detalhes">
+          <div class="abas-cabecalho" role="tablist">
+            <button class="aba-btn ativa" role="tab" aria-selected="true" data-aba="descricao">Descrição</button>
+            <button class="aba-btn" role="tab" aria-selected="false" data-aba="detalhes">Detalhes</button>
+            <button class="aba-btn" role="tab" aria-selected="false" data-aba="trocas">Trocas</button>
+          </div>
+          <div class="conteudo-aba" id="aba-descricao" role="tabpanel">
+            <p class="texto-suave" id="texto-descricao"></p>
+            <p class="texto-pequeno texto-suave">Dúvidas sobre tamanho ou disponibilidade? <a href="#" id="aba-whatsapp" target="_blank" rel="noopener">Chame no WhatsApp</a>.</p>
+          </div>
+          <div class="conteudo-aba" id="aba-detalhes" role="tabpanel" hidden>
+            <ul id="lista-detalhes"></ul>
+          </div>
+          <div class="conteudo-aba" id="aba-trocas" role="tabpanel" hidden>
+            <p>Trocas e devoluções são aceitas em até 7 dias corridos após o recebimento, com a etiqueta original e sem sinais de uso. <a href="trocas.html">Veja a política completa</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ RELACIONADOS ============ -->
+    <div class="container mt-3" id="secao-relacionados">
+      <div class="secao-cabecalho">
+        <div>
+          <span class="selo-titulo">Combine com</span>
+          <h2>Você também pode gostar</h2>
+        </div>
+      </div>
+      <div class="grade-produtos" id="grade-relacionados"></div>
+    </div>
+  </main>
+
+  <footer id="rodape-site"></footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/produto.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catálogo completo — HiT Outlet</title>
+  <meta name="description" content="Catálogo completo da HiT Outlet: tênis, camisetas, calças, jaquetas e moletons masculinos com preços de outlet. Filtre por categoria, marca e preço.">
+  <link rel="icon" type="image/png" href="assets/img/marca/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-pagina="catalogo">
+
+  <div id="cabecalho-site"></div>
+
+  <main>
+    <div class="cabecalho-pagina">
+      <div class="container">
+        <h1>Catálogo completo</h1>
+        <p>Todo o estoque da HiT Outlet em um só lugar: <span id="total-catalogo"></span> modelos com envio para todo o Brasil.</p>
+      </div>
+    </div>
+
+    <div class="secao" style="padding-top:1.6rem">
+      <div class="container pagina-catalogo">
+
+        <!-- ============ FILTROS ============ -->
+        <aside class="filtros-coluna" id="filtros-coluna" aria-label="Filtros de produtos">
+          <div class="filtros">
+            <div class="linha-flex" style="justify-content:space-between">
+              <h2 style="margin:0">Filtros</h2>
+              <button class="btn btn-mini btn-contorno fecha-filtros" id="btn-fechar-filtros" style="display:none">✕ Fechar</button>
+            </div>
+
+            <div class="grupo-filtro">
+              <button class="btn-toggle-filtro" data-alvo="filtro-categorias-wrap" aria-expanded="true">
+                Categoria <span class="seta">▾</span>
+              </button>
+              <div class="filtro-aberto mostrar" id="filtro-categorias-wrap">
+                <div id="filtro-categorias"></div>
+              </div>
+            </div>
+
+            <div class="grupo-filtro">
+              <button class="btn-toggle-filtro" data-alvo="filtro-marcas-wrap" aria-expanded="true">
+                Marca <span class="seta">▾</span>
+              </button>
+              <div class="filtro-aberto mostrar" id="filtro-marcas-wrap">
+                <div id="filtro-marcas"></div>
+              </div>
+            </div>
+
+            <div class="grupo-filtro">
+              <div class="titulo-grupo">Preço</div>
+              <label class="somente-leitor" for="filtro-faixa">Preço máximo</label>
+              <input type="range" id="filtro-faixa" min="79" max="600" step="10">
+              <div class="faixa-preco-valores">
+                <span>R$ 79</span>
+                <span id="faixa-valor"></span>
+              </div>
+            </div>
+
+            <div class="grupo-filtro">
+              <button class="btn-toggle-filtro" data-alvo="filtro-cupons-wrap" aria-expanded="true">
+                Ofertas e cupons <span class="seta">▾</span>
+              </button>
+              <div class="filtro-aberto mostrar" id="filtro-cupons-wrap">
+                <div id="filtro-cupons"></div>
+              </div>
+            </div>
+
+            <button class="limpar-filtros" id="btn-limpar-filtros">Limpar todos os filtros</button>
+          </div>
+        </aside>
+
+        <!-- ============ RESULTADOS ============ -->
+        <section>
+          <form class="cupom-linha" id="form-busca-topo" style="margin:0 0 1rem" role="search">
+            <label class="somente-leitor" for="busca-topo">Buscar no catálogo</label>
+            <input type="search" id="busca-topo" placeholder="Buscar por nome, marca ou categoria...">
+            <button class="btn btn-primario" type="submit">Buscar</button>
+          </form>
+
+          <div class="barra-catalogo">
+            <span class="contagem-resultados" id="contagem-resultados"></span>
+            <div class="linha-flex">
+              <button class="btn btn-mini btn-contorno btn-filtros-mobile" id="btn-filtros-mobile">⚙ Filtros</button>
+              <label class="seletor-ordenacao">
+                Ordenar por
+                <select id="ordenacao" aria-label="Ordenar produtos">
+                  <option value="relevancia">Destaques</option>
+                  <option value="menor-preco">Menor preço</option>
+                  <option value="maior-preco">Maior preço</option>
+                  <option value="novidades">Novidades</option>
+                  <option value="nome">Nome (A–Z)</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="chips-ativos" id="chips-ativos" style="display:none"></div>
+          <div class="grade-produtos" id="grade-resultados"></div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="rodape-site"></footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/catalogo.js"></script>
+  <script>document.getElementById('total-catalogo').textContent = PRODUTOS.length;</script>
+</body>
+</html>

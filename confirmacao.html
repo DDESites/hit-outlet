@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pedido confirmado — HiT Outlet</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="assets/img/marca/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-pagina="confirmacao">
+
+  <div id="cabecalho-site"></div>
+
+  <main class="secao secao-cinza">
+    <div class="container" id="confirmacao-conteudo">
+      <div class="cartao-confirmacao">
+        <div class="selo-sucesso" aria-hidden="true">✓</div>
+        <h1>Pedido recebido!</h1>
+        <p>Olá, <strong id="conf-nome"></strong>! Seu pedido foi registrado com sucesso. Guarde o código abaixo:</p>
+        <span class="codigo-pedido" id="codigo-pedido">HIT-000000</span>
+
+        <p class="texto-suave">O próximo passo é o pagamento. Enviamos as instruções (Pix, link do cartão ou boleto) para o seu WhatsApp e e-mail.</p>
+
+        <div class="lista-confirmacao" id="conf-detalhes"></div>
+
+        <div class="linha-flex" style="justify-content:center">
+          <a class="btn btn-primario" id="btn-whatsapp-confirmacao" href="#" target="_blank" rel="noopener">Confirmar no WhatsApp</a>
+          <a class="btn btn-escuro" id="btn-loja-confirmacao" href="#" target="_blank" rel="noopener">Falar com a loja</a>
+        </div>
+
+        <p class="texto-pequeno texto-suave mt-2">Dúvidas sobre prazos? Veja a nossa <a href="entrega.html">página de entrega</a> ou a <a href="trocas.html">política de trocas</a>.</p>
+
+        <div class="botoes-confirmacao">
+          <a class="btn btn-contorno" href="catalogo.html">Continuar comprando</a>
+          <a class="btn btn-contorno" href="index.html">Voltar ao início</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="rodape-site"></footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/confirmacao.js"></script>
+</body>
+</html>

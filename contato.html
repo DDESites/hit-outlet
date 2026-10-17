@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fale com a HiT Outlet — Contato</title>
+  <meta name="description" content="Fale com a HiT Outlet: WhatsApp, Instagram, endereço da loja em Águas Lindas de Goiás e horários de atendimento.">
+  <link rel="icon" type="image/png" href="assets/img/marca/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-pagina="contato">
+
+  <div id="cabecalho-site"></div>
+
+  <main>
+    <div class="cabecalho-pagina">
+      <div class="container">
+        <h1>Fale com a HiT Outlet</h1>
+        <p>Tire dúvidas sobre tamanhos, acompanhe seu pedido ou venha conhecer a loja. Respondemos rápido no WhatsApp.</p>
+      </div>
+    </div>
+
+    <div class="conteudo-pagina">
+      <div class="container">
+
+        <div class="grade-contatos">
+          <a class="cartao-contato" id="contato-whatsapp" href="#" target="_blank" rel="noopener">
+            <span class="icone icone-whatsapp">💬</span>
+            <span>
+              <strong>WhatsApp</strong>
+              <span id="contato-whatsapp-numero"></span>
+            </span>
+          </a>
+          <a class="cartao-contato" id="contato-instagram" href="#" target="_blank" rel="noopener">
+            <span class="icone icone-instagram">📷</span>
+            <span>
+              <strong>Instagram</strong>
+              <span>@hit_outlet_01 — novidades e promoções</span>
+            </span>
+          </a>
+          <a class="cartao-contato" id="contato-facebook" href="#" target="_blank" rel="noopener">
+            <span class="icone icone-facebook">👍</span>
+            <span>
+              <strong>Facebook</strong>
+              <span>HiT Store — acompanhe nossa página</span>
+            </span>
+          </a>
+          <a class="cartao-contato" id="contato-mapa" href="#" target="_blank" rel="noopener">
+            <span class="icone icone-mapa">📍</span>
+            <span>
+              <strong>Loja física</strong>
+              <span id="contato-endereco"></span>
+            </span>
+          </a>
+        </div>
+
+        <div class="grade-informacao mt-3">
+          <div class="cartao-info">
+            <div class="icone">🕒</div>
+            <h3>Atendimento</h3>
+            <p id="contato-atendimento"></p>
+          </div>
+          <div class="cartao-info">
+            <div class="icone">🏬</div>
+            <h3>Compre online, retire na loja</h3>
+            <p>Escolha a retirada grátis no checkout e retire seu pedido em Águas Lindas de Goiás, ao lado da Mega 25.</p>
+          </div>
+          <div class="cartao-info">
+            <div class="icone">📦</div>
+            <h3>Envios</h3>
+            <p>Enviamos para todo o Brasil com código de rastreio. <a href="entrega.html">Veja prazos e valores</a>.</p>
+          </div>
+        </div>
+
+        <h2>Mais de 300 modelos te esperando</h2>
+        <p>Somos especializados em moda masculina com preço de outlet: tênis, camisetas, calças, bermudas, jaquetas e moletons direto da fábrica. No Instagram você vê os lançamentos primeiro — é lá que saem as promoções de verdade.</p>
+        <p>Chame no WhatsApp que nosso atendimento ajuda você a escolher o tamanho certo antes de comprar. <a href="#" id="contato-cta-whatsapp" target="_blank" rel="noopener">Falar agora com um atendente →</a></p>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="rodape-site"></footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.getElementById('contato-whatsapp').href = linkWhatsApp();
+    document.getElementById('contato-whatsapp-numero').textContent = LOJA.telefoneExibicao;
+    document.getElementById('contato-instagram').href = LOJA.instagram;
+    document.getElementById('contato-facebook').href = LOJA.facebook;
+    document.getElementById('contato-mapa').href = LOJA.mapa;
+    document.getElementById('contato-endereco').textContent = LOJA.endereco;
+    document.getElementById('contato-atendimento').textContent = LOJA.atendimento;
+    document.getElementById('contato-cta-whatsapp').href = linkWhatsApp();
+  </script>
+</body>
+</html>
