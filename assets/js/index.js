@@ -3,6 +3,52 @@
    ========================================================= */
 
 (function () {
+  /* ---------- ofertas reais publicadas no Instagram ---------- */
+  const elOfertas = document.getElementById('grade-ofertas');
+  if (elOfertas) {
+    const ofertas = [
+      {
+        icone: '👟',
+        valor: formatarBRL(LOJA.promoTenisUnitario),
+        titulo: '1 par de tênis',
+        texto: 'Qualquer modelo entre os +300 disponíveis na loja.',
+        href: 'tenis.html',
+        cta: 'Ver tênis',
+        destaque: true,
+      },
+      {
+        icone: '🔥',
+        valor: formatarBRL(LOJA.promoTenisTrio),
+        titulo: `${LOJA.promoTenisTrioQtd} pares de tênis`,
+        texto: 'Leve o trio e divida o valor: sai mais em conta por par.',
+        href: 'tenis.html',
+        cta: 'Montar meu trio',
+        destaque: false,
+      },
+      {
+        icone: '🩴',
+        valor: formatarBRL(LOJA.promoChineloSlide),
+        titulo: 'Chinelo Slide Nuvem',
+        texto: 'Supermacio e leve — o chinelo mais confortável da loja.',
+        href: 'chinelos.html',
+        cta: 'Ver chinelos',
+        destaque: false,
+      },
+    ];
+    elOfertas.innerHTML = ofertas.map(o => `
+      <article class="card-oferta${o.destaque ? ' card-oferta-destaque' : ''}">
+        <span class="icone-oferta" aria-hidden="true">${o.icone}</span>
+        <p class="valor-oferta">${o.valor}</p>
+        <h3>${escapeHTML(o.titulo)}</h3>
+        <p class="texto-pequeno">${escapeHTML(o.texto)}</p>
+        <a class="btn ${o.destaque ? 'btn-branco' : 'btn-contorno'}" href="${o.href}">${o.cta}</a>
+      </article>`).join('');
+  }
+
+  /* ---------- preço mínimo do hero ---------- */
+  const elPartir = document.getElementById('dado-tenis-partir');
+  if (elPartir) elPartir.textContent = `A partir de ${formatarBRL(LOJA.promoTenisUnitario)}`;
+
   /* ---------- categorias ---------- */
   const elCats = document.getElementById('grade-categorias');
   if (elCats) {

@@ -48,6 +48,13 @@
               <span>HiT Store — acompanhe nossa página</span>
             </span>
           </a>
+          <a class="cartao-contato" id="contato-email" href="#">
+            <span class="icone icone-email">✉️</span>
+            <span>
+              <strong>E-mail</strong>
+              <span id="contato-email-endereco"></span>
+            </span>
+          </a>
           <a class="cartao-contato" id="contato-mapa" href="#" target="_blank" rel="noopener">
             <span class="icone icone-mapa">📍</span>
             <span>
@@ -57,6 +64,7 @@
           </a>
         </div>
 
+        <h2 class="somente-leitor">Informações da loja</h2>
         <div class="grade-informacao mt-3">
           <div class="cartao-info">
             <div class="icone">🕒</div>
@@ -95,6 +103,8 @@
     document.getElementById('contato-mapa').href = LOJA.mapa;
     document.getElementById('contato-endereco').textContent = LOJA.endereco;
     document.getElementById('contato-atendimento').textContent = LOJA.atendimento;
+    document.getElementById('contato-email').href = 'mailto:' + LOJA.email;
+    document.getElementById('contato-email-endereco').textContent = LOJA.email;
     document.getElementById('contato-cta-whatsapp').href = linkWhatsApp();
   </script>
 </body>

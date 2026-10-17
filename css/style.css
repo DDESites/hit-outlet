@@ -827,7 +827,9 @@ input[type="range"] { width: 100%; accent-color: var(--vermelho); }
 .cabecalho-pagina p { color: #c9cad2; margin: .4rem 0 0; max-width: 60ch; }
 
 .conteudo-pagina { padding: clamp(2rem, 5vw, 3.4rem) 0; }
-.conteudo-pagina p a, .conteudo-pagina li a { text-decoration: underline; font-weight: 600; }
+/* Links dentro de texto corrido precisam de sublinhado para se
+   distinguirem do texto (WCAG 1.4.1 — Lighthouse link-in-text-block). */
+main p a, main li a, footer p a { text-decoration: underline; font-weight: 600; }
 .conteudo-pagina h2 { margin-top: 1.8rem; font-size: 1.25rem; }
 .conteudo-pagina h3 { margin-top: 1.4rem; }
 .conteudo-pagina ul { padding-left: 1.2rem; }
@@ -838,6 +840,44 @@ input[type="range"] { width: 100%; accent-color: var(--vermelho); }
 .cartao-info .icone { font-size: 1.8rem; margin-bottom: .5rem; }
 .cartao-info h3 { margin-bottom: .35rem; }
 .cartao-info p { font-size: .9rem; color: var(--texto-suave); margin: 0; }
+
+/* ---------- Ofertas reais (home) ---------- */
+.secao-ofertas { background: var(--fundo); }
+.grade-ofertas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+}
+.card-oferta {
+  background: #fff;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  padding: 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .3rem;
+}
+.card-oferta .icone-oferta { font-size: 1.9rem; line-height: 1; }
+.card-oferta .valor-oferta {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.9rem, 3vw, 2.3rem);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  color: var(--vermelho);
+  margin: .3rem 0 0;
+}
+.card-oferta h3 { margin: 0; font-size: 1.05rem; }
+.card-oferta .texto-pequeno { color: var(--texto-suave); margin: 0; flex: 1; }
+.card-oferta .btn { margin-top: .9rem; }
+.card-oferta-destaque {
+  background: var(--vermelho);
+  border-color: var(--vermelho);
+}
+.card-oferta-destaque .valor-oferta,
+.card-oferta-destaque h3 { color: #fff; }
+.card-oferta-destaque .texto-pequeno { color: #fff; }
 
 .tabela-simples { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .92rem; }
 .tabela-simples th, .tabela-simples td { border: 1px solid var(--linha); padding: .7rem .9rem; text-align: left; }
@@ -894,6 +934,7 @@ input[type="range"] { width: 100%; accent-color: var(--vermelho); }
 .icone-whatsapp { background: #e3f7ec; }
 .icone-instagram { background: #fbeaf3; }
 .icone-facebook { background: #e8f0fe; }
+.icone-email { background: var(--vermelho-claro); }
 .icone-mapa { background: var(--vermelho-claro); }
 
 /* ---------- rodapé ---------- */
@@ -904,7 +945,7 @@ input[type="range"] { width: 100%; accent-color: var(--vermelho); }
   gap: 2rem;
   padding: 3rem 0 2rem;
 }
-.rodape h4 { color: #fff; font-size: .95rem; text-transform: uppercase; margin-bottom: .9rem; }
+.rodape h2 { color: #fff; font-size: .95rem; text-transform: uppercase; margin-bottom: .9rem; }
 .rodape a { color: #cfd0d6; display: block; padding: .28rem 0; font-size: .9rem; text-decoration: none; }
 .rodape a:hover { color: #fff; }
 .rodape .marca { color: #fff; margin-bottom: .8rem; }

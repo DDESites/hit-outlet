@@ -49,6 +49,11 @@ $map = @{
   "tenis-reebok-classic"         = @("$env:TEMP\hit-cand\13-1595341888.jpg")
   "tenis-new-balance-574"        = @("$env:TEMP\hit-cand\15-1465453869.jpg")
   "tenis-converse-chuck-70"      = @("$env:TEMP\hit-cand\16-1512374382.jpg")
+  # Chinelos (origem: Unsplash, fotos rebaixadas para 1000px)
+  #   nuvem: https://images.unsplash.com/photo-1704834310294-24c1694a7552
+  #   preto: https://images.unsplash.com/photo-1724092130836-08579afc63a1
+  "chinelo-slide-nuvem"        = @("$env:TEMP\hit-chinelo\h.jpg")
+  "chinelo-slide-preto"        = @("$env:TEMP\hit-chinelo\f.jpg")
   # Camisetas
   "camiseta-basica-branca"       = @("$env:TEMP\hit-cand2\00-1521572163.jpg")
   "camiseta-grafica-preta"       = @("$env:TEMP\hit-cand2\01-1503341504.jpg")

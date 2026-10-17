@@ -82,8 +82,14 @@
     const contFaixa = document.getElementById('filtro-faixa');
     const rotuloFaixa = document.getElementById('faixa-valor');
     if (contFaixa) {
+      // Limite inferior derivado do produto mais barato da seleção atual.
+      const precosVisiveis = PRODUTOS.filter(naCategoriaAtual).map(p => p.preco);
+      const minimo = precosVisiveis.length ? Math.floor(Math.min(...precosVisiveis)) : 0;
+      contFaixa.min = String(minimo);
       contFaixa.max = String(FAIXAS_PRECO[FAIXAS_PRECO.length - 1].max);
       contFaixa.value = String(estado.faixa);
+      const rotuloMinimo = document.getElementById('faixa-minimo');
+      if (rotuloMinimo) rotuloMinimo.textContent = `R$ ${minimo}`;
       if (rotuloFaixa) rotuloFaixa.textContent = `até ${formatarBRL(estado.faixa)}`;
       contFaixa.addEventListener('input', () => {
         estado.faixa = Number(contFaixa.value);

@@ -28,7 +28,7 @@ try {
         $ctx.Response.ContentLength64 = $bytes.Length
         $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
       } else {
-        $msg = [Text.Encoding]::UTF8.GetBytes("<h1>404 — página não encontrada</h1>")
+        $msg = [Text.Encoding]::UTF8.GetBytes("<h1>404 - pagina nao encontrada</h1>")
         $ctx.Response.StatusCode = 404
         $ctx.Response.OutputStream.Write($msg, 0, $msg.Length)
       }

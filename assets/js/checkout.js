@@ -20,6 +20,7 @@
     document.getElementById('checkout-corpo').innerHTML = `
       <div class="vazio-estado">
         <div class="icone">🛍️</div>
+        <h2 class="somente-leitor">Itens do pedido</h2>
         <h3>Sua sacola está vazia</h3>
         <p>Adicione produtos antes de finalizar o pedido.</p>
         <a class="btn btn-primario" href="catalogo.html">Ver catálogo</a>

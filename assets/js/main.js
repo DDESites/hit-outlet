@@ -179,7 +179,7 @@ function renderizarCabecalho() {
   if (!el) return;
   el.innerHTML = `
   <div class="faixa-topo">
-    <span><span class="ponto">●</span> Tênis a partir de <strong>${formatarBRL(79.99)}</strong></span>
+    <span><span class="ponto">●</span> Tênis a partir de <strong>${formatarBRL(LOJA.promoTenisUnitario)}</strong></span>
     <span class="esconder-mobile"><span class="ponto">●</span> Envio para todo o Brasil</span>
     <span class="esconder-mobile"><span class="ponto">●</span> Direto da fábrica</span>
   </div>
@@ -201,7 +201,7 @@ function renderizarCabecalho() {
         <a class="acao-topo" href="${linkWhatsApp()}" target="_blank" rel="noopener">
           <span class="icone">${ICONE_WHATSAPP}</span><span class="rotulo-acao">WhatsApp</span>
         </a>
-        <a class="acao-topo" href="sacola.html" aria-label="Ver sacola de compras">
+        <a class="acao-topo" href="sacola.html">
           <span class="icone" aria-hidden="true">🛍️</span>
           <span class="rotulo-acao">Sacola</span>
           <span class="badge-contador" data-contador-sacola style="display:none">0</span>
@@ -243,19 +243,19 @@ function renderizarRodape() {
         </div>
       </div>
       <div>
-        <h4>Categorias</h4>
+        <h2>Categorias</h2>
         ${CATEGORIAS.map(c => `<a href="${c.slug}">${c.nome}</a>`).join('')}
         <a href="catalogo.html">Catálogo completo</a>
       </div>
       <div>
-        <h4>Ajuda</h4>
+        <h2>Ajuda</h2>
         <a href="entrega.html">Entrega e prazos</a>
         <a href="trocas.html">Trocas e devoluções</a>
         <a href="contato.html">Fale conosco</a>
         <a href="sacola.html">Minha sacola</a>
       </div>
       <div>
-        <h4>Novidades e promoções</h4>
+        <h2>Novidades e promoções</h2>
         <p>Receba ofertas exclusivas e lançamentos no seu e-mail.</p>
         <form class="form-newsletter" id="form-newsletter">
           <label class="somente-leitor" for="news-email">Seu e-mail</label>
@@ -263,6 +263,7 @@ function renderizarRodape() {
           <button type="submit">Assinar</button>
         </form>
         <p class="texto-pequeno" style="margin-top:.6rem">WhatsApp: <strong>${LOJA.telefoneExibicao}</strong></p>
+        <p class="texto-pequeno" style="margin:.3rem 0 0">E-mail: <a href="mailto:${LOJA.email}">${LOJA.email}</a></p>
       </div>
     </div>
     <div class="container rodape-base">

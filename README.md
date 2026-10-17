@@ -1,6 +1,6 @@
 # HiT Outlet — Site institucional e loja virtual (estático)
 
-Site completo da **HiT Outlet** (moda masculina — tênis, camisetas, calças/bermudas, jaquetas e moletons), construído conforme o PRD em anexo. Sem build: HTML + CSS + JavaScript puro, prontos para hospedar em qualquer servidor estático (GitHub Pages, Netlify, Vercel, Hostinger etc.).
+Site completo da **HiT Outlet** (moda masculina — tênis, chinelos, camisetas, calças/bermudas, jaquetas e moletons), construído conforme o PRD em anexo. Sem build: HTML + CSS + JavaScript puro, prontos para hospedar em qualquer servidor estático (GitHub Pages, Netlify, Vercel, Hostinger etc.).
 
 ## Como rodar localmente
 
@@ -19,6 +19,7 @@ hit-outlet/
 ├── index.html              Home (hero, categorias, destaques, promoções, novidades)
 ├── catalogo.html           Catálogo com filtros, busca e ordenação
 ├── tenis.html              Categoria: tênis
+├── chinelos.html           Categoria: chinelos e slides
 ├── camisetas.html          Categoria: camisetas
 ├── calcas-bermudas.html    Categoria: calças e bermudas
 ├── jaquetas-moletons.html  Categoria: jaquetas e moletons
@@ -40,12 +41,13 @@ hit-outlet/
 │   └── confirmacao.js      Confirmação de pedido
 ├── assets/img/produtos/    Fotos dos produtos (1000px)
 ├── assets/img/marca/       Selo da marca (selo.png, favicon.png)
+├── server.ps1              Servidor local (powershell .\server.ps1)
 └── _fonte/                 Scripts que regeneram as imagens (PowerShell)
 ```
 
 ## Funcionalidades
 
-- **Catálogo**: 41+ produtos em 4 categorias; filtros por categoria, marca, faixa de preço e cupons; ordenação (destaques, preço, novidades, A–Z); busca com sugestões no cabeçalho; chips de filtros ativos; tudo legível via URL (`catalogo.html?busca=tênis`).
+- **Catálogo**: 43 produtos em 5 categorias; filtros por categoria, marca, faixa de preço, promoções e novidades; ordenação (destaques, preço, novidades, A–Z); busca com sugestões no cabeçalho; chips de filtros ativos; tudo legível via URL (`catalogo.html?busca=tênis`).
 - **Produto**: galeria com miniaturas, seletor de cor e tamanho (com tamanhos esgotados), quantidade, cálculo de frete por CEP (ViaCEP + tabela interna), abas de descrição/detalhes/trocas e produtos relacionados.
 - **Sacola persistente** (localStorage): alterar quantidade, remover, cupons (`HIT10`, `FRETEGRATIS`), cálculo de frete e resumo ao vivo.
 - **Checkout em 3 passos**: identificação + endereço com preenchimento automático por CEP, entrega (padrão/expressa/retirada na loja) e pagamento (Pix, cartão, boleto, dinheiro na entrega), com revisão editável e validação em português.
@@ -54,18 +56,53 @@ hit-outlet/
 - **Acessibilidade**: contraste alto (vermelho sobre branco, texto grafite), labels reais nos formulários, `alt` em todas as imagens, foco visível, navegação por teclado nas sugestões de busca, alvos de toque ≥ 44px e respeito a `prefers-reduced-motion`.
 - **Responsivo**: desktop (grade larga + barra lateral de filtros), tablet e mobile (menu hambúrguer, filtros em gaveta, grade 2 colunas).
 
+## 📣 Dados coletados nas redes oficiais da loja
+
+Estes itens já foram conferidos nas fontes públicas da própria loja e estão aplicados no site:
+
+| Dado | Valor | Fonte |
+|---|---|---|
+| Nome / perfil | HiT Outlet — Hugo Ciel · `@hit_outlet_01` (8,1 mil seguidores) | Instagram |
+| Perfil reserva | `@hit_outlet_reserva` | Instagram |
+| WhatsApp | (61) 99231-6858 (`5561992316858`) | link `wa.me` no perfil |
+| Telefone alternativo | (61) 98539-0847 | Facebook HiT STORE |
+| E-mail | romannos9@gmail.com | Facebook HiT STORE |
+| Horário | Sempre aberto | Facebook HiT STORE |
+| Endereço | Jardim Brasília, ao lado da Mega 25 — Águas Lindas de Goiás/GO | legendas dos reels |
+| Variedade | +300 modelos | legendas dos reels |
+| **Tênis** | **1 par por R$ 90** · **3 pares por R$ 220** | reel de 09/10 |
+| **Chinelo Slide Nuvem** | **R$ 60,00** | reel da promoção |
+| Facebook | `hitstore01` (HiT Store, Roupas e vestuário) | — |
+
+Os preços do catálogo foram reancorados nessa faixa real de outlet (tênis a partir de **R$ 90**, chinelos e camisetas abaixo de R$ 60) e a home exibe a seção **"As ofertas que estão no Instagram"**, alimentada por `LOJA.promoTenisUnitario`, `LOJA.promoTenisTrio` e `LOJA.promoChineloSlide`.
+
+> ⚠️ O CEP `72920-548` que aparece cadastrado no Facebook é do **Jardim da Barragem III** (outro bairro) e não foi publicado — o endereço usado no site é o que a loja repete em todas as legendas.
+
 ## ⚙️ Pontos a confirmar antes de publicar (marcados em `data.js`)
 
-Os contatos, redes e localização são os **oficiais da loja**. Já os itens abaixo são estimativas e precisam ser validados pela gestão:
+Contatos, redes, localização, horário e as **promoções de tênis/chinelo** são dados oficiais. Ainda faltam, e continuam marcados como `TODO`:
 
-1. **Tabela de preços** — valores de referência ancorados nas promoções publicadas (tênis a partir de R$ 79,99). Substituir pela tabela oficial.
-2. **E-mail de atendimento** — `LOJA.email` ainda não informado oficialmente.
-3. **Horário de funcionamento** — `LOJA.atendimento` é estimativa.
-4. **Condições de frete** — prazos e faixas de CEP em `calcularFrete()`; limiar de frete grátis (hoje R$ 299,99) em `LOJA.freteGratisAcimaDe`.
-5. **Formas de pagamento** — confirmar quais realmente são aceitas (Pix, cartão, boleto, débito/dinheiro na entrega).
-6. **Chave Pix** — o checkout informa que o QR Code é enviado no WhatsApp; se preferir exibir a chave na página, acrescente em `LOJA.pixChave`.
+1. **Tabela de preços completa** — tênis e chinelo seguem a promoção real publicada; camisetas, calças e jaquetas usam faixa de outlet estimada. Substituir pela tabela oficial.
+2. **Condições de frete** — prazos e faixas de CEP em `calcularFrete()`; limiar de frete grátis (hoje R$ 299,99) em `LOJA.freteGratisAcimaDe`.
+3. **% de desconto no Pix** — hoje 5%, em `LOJA.pixDescontoPercentual`.
+4. **Formas de pagamento** — confirmar quais realmente são aceitas (Pix, cartão, boleto, débito/dinheiro na entrega).
+5. **Chave Pix** — o checkout informa que o QR Code é enviado no WhatsApp; se preferir exibir a chave na página, acrescente em `LOJA.pixChave`.
 
 Tudo isso fica em **um lugar só**: o objeto `LOJA` no topo de `assets/js/data.js`.
+
+## 🧩 Convenções do `data.js` (ao editar produtos)
+
+O restante do site lê esses campos — mantenha os formatos:
+
+| Campo | Formato | Observação |
+|---|---|---|
+| `estoque` | `true` / `false` | `false` mostra o produto como **Esgotado**. |
+| `estoqueMax` | número (opcional) | Limite de unidades por item na sacola. Sem esse campo, vale `ESTOQUE_MAXIMO_PADRAO` (8) definido em `main.js`. |
+| `categoria` | **nome** (`"Tênis"`) | Deve ser igual a `CATEGORIAS[].nome`; o site também aceita o `id`. |
+| `detalhes` | **objeto** | `{ Material: "…", Uso: "…" }` — vira lista na aba "Detalhes". |
+| `esgotados` | array | Tamanhos indisponíveis, ex.: `["39", "42"]`. |
+| `precoAntigo` | número ou ausente | Preenchido (e maior que `preco`) ativa o rótulo de promoção e o desconto no card. |
+| `CUPONS` | array | `HIT10` (percentual) e `FRETEGRATIS` (frete). O limiar do frete grátis é `LOJA.freteGratisAcimaDe`. |
 
 ## Identidade visual
 
@@ -74,7 +111,7 @@ Tudo isso fica em **um lugar só**: o objeto `LOJA` no topo de `assets/js/data.j
 - **Fundos**: branco + cinza claro `#f6f6f8`, divisórias `#e6e7eb`
 - **Tipografia**: Archivo (títulos, caixa alta, esportiva) + Inter (texto)
 - **Formas**: cantos arredondados e círculos remetendo ao selo da marca
-- Fotografia de produto sempre sobre fundo neutro/claro (fotos reais dos anúncios da loja)
+- Fotografia de produto sempre sobre fundo neutro/claro (fotos de banco de imagens — Unsplash — servindo como representação dos modelos; substituir pelas fotos da própria loja quando disponíveis)
 
 ## Regenerar as imagens
 
