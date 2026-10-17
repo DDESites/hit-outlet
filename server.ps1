@@ -1,58 +1,38 @@
-# HiT Outlet - servidor local para desenvolvimento
-# Uso: powershell -ExecutionPolicy Bypass -File .\server.ps1  [porta]  (padrao 8080)
-param([int]$Porta = 8080)
-
-$raiz = Split-Path -Parent $MyInvocation.MyCommand.Path
-if (-not $raiz) { $raiz = (Get-Location).Path }
-
-Write-Host ("HiT Outlet - servindo " + $raiz + " em http://localhost:" + $Porta) -ForegroundColor Red
-Write-Host "Pressione Ctrl+C para parar."
-
-$mime = @{
-  '.html' = 'text/html; charset=utf-8'
-  '.css'  = 'text/css; charset=utf-8'
-  '.js'   = 'application/javascript; charset=utf-8'
-  '.json' = 'application/json'
-  '.png'  = 'image/png'
-  '.jpg'  = 'image/jpeg'
-  '.jpeg' = 'image/jpeg'
-  '.webp' = 'image/webp'
-  '.svg'  = 'image/svg+xml'
-  '.ico'  = 'image/x-icon'
-  '.woff' = 'font/woff'
-  '.woff2'= 'font/woff2'
-  '.ttf'  = 'font/ttf'
-}
-
+# Servidor HTTP simples para o site HiT Outlet
+# Uso:  .\server.ps1        -> http://localhost:8080
+#       .\server.ps1 8090   -> http://localhost:8090
+$root = $PSScriptRoot
+$port = if ($args[0]) { [int]$args[0] } else { 8080 }
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add("http://localhost:" + $Porta + "/")
+$listener.Prefixes.Add("http://localhost:$port/")
 $listener.Start()
-
+Write-Host "Servindo $root em http://localhost:$port  (Ctrl+C para parar)"
+$mime = @{
+  ".html"="text/html; charset=utf-8"; ".css"="text/css; charset=utf-8";
+  ".js"="application/javascript; charset=utf-8"; ".svg"="image/svg+xml";
+  ".jpg"="image/jpeg"; ".jpeg"="image/jpeg"; ".png"="image/png";
+  ".webp"="image/webp"; ".ico"="image/x-icon"; ".json"="application/json"
+}
 try {
   while ($listener.IsListening) {
     $ctx = $listener.GetContext()
-    $caminho = [Uri]::UnescapeDataString($ctx.Request.Url.LocalPath).TrimStart('/')
-    if (-not $caminho) { $caminho = 'index.html' }
-    $arquivo = Join-Path $raiz $caminho
-    if (Test-Path $arquivo -PathType Container) { $arquivo = Join-Path $arquivo 'index.html' }
-
-    if (Test-Path $arquivo -PathType Leaf) {
-      $ext = [IO.Path]::GetExtension($arquivo).ToLower()
-      if ($mime.ContainsKey($ext)) { $tipo = $mime[$ext] } else { $tipo = 'application/octet-stream' }
-      $bytes = [IO.File]::ReadAllBytes($arquivo)
-      $ctx.Response.StatusCode = 200
-      $ctx.Response.ContentType = $tipo
-      $ctx.Response.ContentLength64 = $bytes.Length
-      $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
-    } else {
-      $msg = [Text.Encoding]::UTF8.GetBytes('<h1>404 - nao encontrado</h1>')
-      $ctx.Response.StatusCode = 404
-      $ctx.Response.ContentType = 'text/html; charset=utf-8'
-      $ctx.Response.OutputStream.Write($msg, 0, $msg.Length)
-    }
-    $ctx.Response.Close()
+    try {
+      $path = [Uri]::UnescapeDataString($ctx.Request.Url.LocalPath)
+      if ($path.EndsWith("/")) { $path += "index.html" }
+      $file = Join-Path $root ($path -replace "/", "\")
+      if (Test-Path $file -PathType Leaf) {
+        $bytes = [IO.File]::ReadAllBytes($file)
+        $ext = [IO.Path]::GetExtension($file).ToLower()
+        $ctx.Response.ContentType = $mime[$ext]
+        if (-not $ctx.Response.ContentType) { $ctx.Response.ContentType = "application/octet-stream" }
+        $ctx.Response.ContentLength64 = $bytes.Length
+        $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
+      } else {
+        $msg = [Text.Encoding]::UTF8.GetBytes("<h1>404 — página não encontrada</h1>")
+        $ctx.Response.StatusCode = 404
+        $ctx.Response.OutputStream.Write($msg, 0, $msg.Length)
+      }
+    } catch { try { $ctx.Response.StatusCode = 500 } catch {} }
+    finally { $ctx.Response.Close() }
   }
-} finally {
-  $listener.Stop()
-  $listener.Close()
-}
+} finally { $listener.Stop() }

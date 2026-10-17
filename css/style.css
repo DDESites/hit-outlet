@@ -511,7 +511,7 @@ input[type="range"] { width: 100%; accent-color: var(--vermelho); }
   color: var(--texto-suave);
 }
 .vazio-estado .icone { font-size: 2.6rem; margin-bottom: .6rem; }
-.vazio-estado h3 { color: var(--grafite); }
+.vazio-estado h1, .vazio-estado h3 { color: var(--grafite); font-size: 1.4rem; }
 
 /* ---------- página do produto ---------- */
 .pagina-produto { display: grid; grid-template-columns: 1fr 1fr; gap: 2.6rem; align-items: start; }

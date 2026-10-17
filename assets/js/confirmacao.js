@@ -12,7 +12,7 @@
       raiz.innerHTML = `
         <div class="vazio-estado">
           <div class="icone">📦</div>
-          <h3>Nenhum pedido encontrado</h3>
+          <h1>Nenhum pedido encontrado</h1>
           <p>Quando você finalizar uma compra, a confirmação aparece aqui.</p>
           <a class="btn btn-primario" href="catalogo.html">Ver catálogo</a>
         </div>`;

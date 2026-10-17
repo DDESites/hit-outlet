@@ -158,7 +158,10 @@
     document.getElementById('detalhe-dinheiro').hidden = op !== 'dinheiro';
   }
   document.querySelectorAll('input[name="pagamento"]').forEach(r =>
-    r.addEventListener('change', atualizarPagamento));
+    r.addEventListener('change', () => {
+      atualizarPagamento();
+      atualizarResumoPedido();   // Pix altera o total exibido
+    }));
 
   /* ---------- resumo do pedido (coluna lateral) ---------- */
   function renderResumoLateral() {
@@ -179,17 +182,35 @@
     atualizarResumoPedido();
   }
 
-  function atualizarResumoPedido() {
+  /* Total único: subtotal − (cupom + Pix) + frete.
+     Usado pelo resumo lateral e pela conclusão do pedido, para que o
+     valor mostrado sempre seja o valor cobrado. */
+  function totalFinal() {
     const subtotal = subtotalSacola();
-    const desconto = descontoCupom(subtotal);
-    const total = Math.max(0, subtotal - desconto) + freteValor;
+    const descontoC = descontoCupom(subtotal);
+    const base = Math.max(0, subtotal - descontoC) + freteValor;
+    const pixDesconto = opcaoPagamento() === 'pix' && LOJA.pixDescontoPercentual
+      ? base * (LOJA.pixDescontoPercentual / 100)
+      : 0;
+    return { subtotal, descontoC, pixDesconto, total: base - pixDesconto };
+  }
+
+  function atualizarResumoPedido() {
+    const { subtotal, descontoC, pixDesconto, total } = totalFinal();
+    const descontoTotal = descontoC + pixDesconto;
     document.getElementById('resumo-lateral-subtotal').textContent = formatarBRL(subtotal);
     const elDesc = document.getElementById('resumo-lateral-desconto-linha');
-    if (desconto > 0) {
+    if (descontoTotal > 0) {
       elDesc.style.display = 'flex';
-      document.getElementById('resumo-lateral-desconto').textContent = '− ' + formatarBRL(desconto);
+      const rotulos = [];
+      if (descontoC > 0) rotulos.push('cupom');
+      if (pixDesconto > 0) rotulos.push('Pix');
+      elDesc.querySelector('span').textContent =
+        rotulos.length > 1 ? `Descontos (${rotulos.join(' + ')})` : `Desconto ${rotulos[0]}`;
+      document.getElementById('resumo-lateral-desconto').textContent = '− ' + formatarBRL(descontoTotal);
     } else elDesc.style.display = 'none';
-    document.getElementById('resumo-lateral-frete').textContent = freteValor > 0 ? formatarBRL(freteValor) : 'A calcular';
+    document.getElementById('resumo-lateral-frete').textContent =
+      freteValor > 0 ? formatarBRL(freteValor) : (opcaoEntrega() === 'retirada' ? 'Grátis' : 'A calcular');
     document.getElementById('resumo-lateral-total').textContent = formatarBRL(total);
   }
 
@@ -231,7 +252,12 @@
     document.getElementById('rev-entrega').textContent =
       `${entregaTexto}${fretePrazo ? ' — ' + fretePrazo : ''}`;
 
-    const pagTexto = { pix: 'PIX (5% de desconto)', cartao: 'Cartão de crédito (até 10x sem juros)', boleto: 'Boleto bancário', dinheiro: 'Dinheiro na entrega' }[opcaoPagamento()];
+    const pagTexto = {
+      pix: `PIX (${LOJA.pixDescontoPercentual}% de desconto)`,
+      cartao: 'Cartão de crédito (até 10x sem juros)',
+      boleto: 'Boleto bancário',
+      dinheiro: 'Dinheiro na entrega'
+    }[opcaoPagamento()];
     document.getElementById('rev-pagamento').textContent = pagTexto;
     const elCpf = document.getElementById('rev-cpf');
     const cpf = document.getElementById('cpf').value.trim();
@@ -243,17 +269,6 @@
 
   document.querySelectorAll('.btn-editar-secao').forEach(btn =>
     btn.addEventListener('click', () => irParaPasso(Number(btn.dataset.passo))));
-
-  /* ---------- total final (com desconto do Pix) ---------- */
-  function totalFinal() {
-    const subtotal = subtotalSacola();
-    const descontoC = descontoCupom(subtotal);
-    let total = Math.max(0, subtotal - descontoC) + freteValor;
-    if (opcaoPagamento() === 'pix' && LOJA.pixDescontoPercentual) {
-      total *= 1 - LOJA.pixDescontoPercentual / 100;
-    }
-    return { subtotal, descontoC, total };
-  }
 
   document.getElementById('btn-voltar-sacola')?.addEventListener('click', () => {
     window.location.href = 'sacola.html';
@@ -271,7 +286,7 @@
     elAviso.style.display = 'none';
 
     const c = dadosCliente();
-    const { subtotal, descontoC, total } = totalFinal();
+    const { subtotal, descontoC, pixDesconto, total } = totalFinal();
     const codigo = 'HIT-' + String(Date.now()).slice(-6);
 
     const pedido = {
@@ -287,7 +302,7 @@
       }),
       entrega: { tipo: opcaoEntrega(), prazo: fretePrazo, frete: freteValor },
       pagamento: opcaoPagamento(),
-      subtotal, desconto: descontoC, total,
+      subtotal, desconto: descontoC, descontoPix: pixDesconto, total,
       cupom: lerCupom() || null,
     };
     localStorage.setItem(CHAVE_PEDIDO, JSON.stringify(pedido));
